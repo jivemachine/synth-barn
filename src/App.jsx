@@ -1,10 +1,41 @@
 import { useReducer, useState } from "react";
 
 const initialState = {
-
+    items: [],
+    counter: 0
 };
 
+// reducer function
+function reducer(state, action) {
+    switch(action.type) {
+        case 'ADD2CART':
+            return {
+                counter: state.counter + 1,
+                items: [...state.items, {id: state.counter, item: action.item, price: action.price}]
+            };
+        default:
+            return state;
+    }
+}
+
 const App = () => {
+
+    // add 2 cart
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const [values, setValues] = useState({});
+
+    const handleChanges = e => {
+        setValues(prev => ({...prev, [e.target.name]: e.target.value }))
+    };
+
+    const handleSubmit = () => {
+        dispatch({
+            type: "ADD2CART",
+            item: values.item,
+            price: values.price
+        });
+    }
+
     return (
         <>
             <div className="container text-center">
@@ -27,6 +58,8 @@ const App = () => {
                     </div>
                 </div>
 
+                
+
                 {/* used synth cards */}
                 <div className="row m-4">
                     <div className="col-4">
@@ -35,7 +68,7 @@ const App = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Juno-106</h5>
                                 <p className="card-text">Roland Juno-106 synthesizer</p>
-                                <a href="#" className="btn btn-primary">Add 2 Cart</a>
+                                <a onClick={handleSubmit} value={""} className="btn btn-primary">Add 2 Cart</a>
                             </div>
                         </div>
                     </div>
@@ -45,7 +78,19 @@ const App = () => {
                             <div className="card-body">
                                 <h5 className="card-title">DX7</h5>
                                 <p className="card-text">Yamaha DX7 Synthesizer</p>
-                                <a href="#" className="btn btn-primary">Add 2 Cart</a>
+                                <a onClick={handleSubmit}  className="btn btn-primary">Add 2 Cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {/* cart card */}
+                    <div className="col-4">
+                        <div className="card" style={{ width: "18rem" }}>
+                            <div className="card-body">
+                                <h5 className="card-title"></h5>
+                                <p className="card-text"></p>
+                                <a href="#" className="btn btn-primary">Go 2 Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -59,7 +104,7 @@ const App = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Jupiter 8</h5>
                                 <p className="card-text">Roland Juno 8 synthesizer</p>
-                                <a href="#" className="btn btn-primary">Add 2 Cart</a>
+                                <a onClick={handleSubmit} className="btn btn-primary">Add 2 Cart</a>
                             </div>
                         </div>
                     </div>
@@ -69,7 +114,7 @@ const App = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Memory Moog</h5>
                                 <p className="card-text">Moog Memorymoog Synthesizer</p>
-                                <a href="#" className="btn btn-primary">Add 2 Cart</a>
+                                <a onClick={handleSubmit} className="btn btn-primary">Add 2 Cart</a>
                             </div>
                         </div>
                     </div>
