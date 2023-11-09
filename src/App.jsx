@@ -55,6 +55,13 @@ const App = () => {
                     </div>
                     <div className="col-5">
                         <h3>Your Cart</h3>
+                        <ul>
+                            {state.items.map((item, idx ) => {
+                                <li key={`item-${item.id}`}>
+                                    {item.item}: ${item.price}
+                                </li>
+                            })}
+                        </ul>
                     </div>
                 </div>
 
@@ -68,7 +75,9 @@ const App = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Juno-106</h5>
                                 <p className="card-text">Roland Juno-106 synthesizer</p>
-                                <a onClick={handleSubmit} value={""} className="btn btn-primary">Add 2 Cart</a>
+                                <input type="hidden" value={'Juno-106'} onChange={handleChanges} name="item" />
+                                <input type="hidden" value={values.price} onChange={handleChanges} name="price" />
+                                <a onClick={handleSubmit} className="btn btn-primary">Add 2 Cart</a>
                             </div>
                         </div>
                     </div>
