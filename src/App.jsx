@@ -2,7 +2,8 @@ import { useReducer, useState } from "react";
 
 const initialState = {
     items: [],
-    counter: 0
+    counter: 0,
+    total: 0
 };
 
 // reducer function
@@ -11,23 +12,29 @@ function reducer(state, action) {
         case 'ADD2CART-juno106':
             return {
                 counter: state.counter + 1,
-                items: [...state.items, { id: state.counter, item: action.item, price: action.price }]
+                items: [...state.items, { id: state.counter, item: 'juno-106', price: 2400 }],
+                total: state.total + 2400
             };
         case 'ADD2CART-dx7':
             return {
                 counter: state.counter + 1,
-                items: [...state.items, { id: state.counter, item: 'DX7', price: 800 }]
+                items: [...state.items, { id: state.counter, item: 'DX7', price: 800 }],
+                total: state.total + 800
             };
         case 'ADD2CART-jupiter8':
             return {
                 counter: state.counter + 1,
-                items: [...state.items, { id: state.counter, item: 'jupiter8', price: 29900 }]
+                items: [...state.items, { id: state.counter, item: 'jupiter8', price: 29900 }],
+                total: state.total + 29900
             };
         case 'ADD2CART-memorymoog':
             return {
                 counter: state.counter + 1,
-                items: [...state.items, { id: state.counter, item: 'memorymoog', price: 10000 }]
+                items: [...state.items, { id: state.counter, item: 'memorymoog', price: 10000 }],
+                total: state.total + 10000
             };
+        case 'RESET':
+            return initialState;
         default:
             return state;
     }
@@ -83,7 +90,7 @@ const App = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Juno-106</h5>
                                 <p className="card-text">Roland Juno-106 synthesizer</p>
-                                <button onClick={handleSubmit} className="btn btn-primary">Add 2 Cart</button>
+                                <button onClick={() => dispatch({ type: 'ADD2CART-juno106' })} className="btn btn-primary">Add 2 Cart</button>
                             </div>
                         </div>
                     </div>
@@ -112,8 +119,12 @@ const App = () => {
                                             </li>
                                         ))}
                                     </ul>
+                                    <b>
+                                        <p>TOTAL: ${state.total}</p>
+                                    </b>
                                 </p>
                                 <a href="#" className="btn btn-primary">Go 2 Checkout</a>
+                                <button onClick={() => dispatch({ type: 'RESET' })} className="btn btn-outline-danger m-1">Reset Cart</button>
                             </div>
                         </div>
                     </div>
